@@ -28,18 +28,18 @@ const ComponentPresentation = ({ onPress, counter, up, down, reset }) => {
 const styles = StyleSheet.create({
   text: {
     color: "#333",
-    fontSize: 32,
+    fontSize: 20,
   },
   textDanger: {
-    color: "red",
-    fontSize: 32,
+    color: "gray",
+    fontSize: 20,
   },
   button: {
     backgroundColor: "#580AFF",
     padding: 10,
     width: "100%",
     borderRadius: 10,
-    marginVertical: 16,
+    marginVertical: 8,
   },
   buttonContent: {
     color: "#fff",

@@ -12,7 +12,7 @@ export default function App() {
   };
 
   const down = () => {
-    if (counter > 1) {
+    if (counter > 0) {
       setCounter(counter - 1);
     }
   };
