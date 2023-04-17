@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 
 const DATA = [
   {
@@ -70,14 +70,16 @@ const DATA = [
 const ListItem = ({ item }) => {
   return (
     <TouchableOpacity
+      onPress={() => Alert.alert("Barang", item.namaBarang)}
       style={{
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 20,
         paddingVertical: 10,
-        backgroundColor: "#f45f45",
+        backgroundColor: "#e3e3e3",
         borderRadius: 8,
+        elevation: 2,
       }}>
       <View>
         <Text>{item.namaBarang}</Text>
