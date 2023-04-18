@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: "#fff",
     marginHorizontal: 24,
-    justifyConten: "center",
+    justifyContent: "center",
 
     // marginTop: 50,
   },
