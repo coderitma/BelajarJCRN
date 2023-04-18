@@ -22,7 +22,7 @@ export default function FormSignin() {
   return (
     <SafeAreaView style={styles.formContainer}>
       <View style={styles.titleWrapper}>
-        <Text style={styles.signinTitle}>Sign In</Text>
+        <Text style={styles.signinTitle}>Halodok</Text>
         <Text style={styles.signinSubtitle}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt
@@ -47,7 +47,7 @@ export default function FormSignin() {
       </View>
       <View>
         <TouchableOpacity style={[styles.btn, styles.btnSecondary]}>
-          <Text style={styles.btnLabel}>Register</Text>
+          <Text style={[styles.btnLabel, { color: "#ff0266" }]}>Register</Text>
         </TouchableOpacity>
       </View>
 
@@ -100,40 +100,6 @@ export default function FormSignin() {
           </View>
         </TouchableOpacity>
       </View>
-      <View>
-        <TouchableOpacity
-          style={[
-            styles.btn,
-            styles.btnSecondary,
-            { display: "flex", alignItems: "center" },
-          ]}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              width: "80%",
-            }}>
-            <Entypo
-              style={[
-                styles.btnLabelPrimary,
-                { flexGrow: 1, textAlign: "center", color: "green" },
-              ]}
-              name="google-play"
-              size={32}
-            />
-
-            <Text
-              style={[
-                styles.btnLabel,
-                styles.btnLabelPrimary,
-                { flexGrow: 1, textAlign: "left", color: "green" },
-              ]}>
-              Sign In with Google Playstore
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }
@@ -174,7 +140,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-
   btnLabelLight: {
     textAlign: "center",
     fontSize: 16,
@@ -183,17 +148,18 @@ const styles = StyleSheet.create({
   },
 
   btnPrimary: {
-    backgroundColor: "blue",
+    backgroundColor: "#ff0266",
   },
 
   btnSecondary: {
-    backgroundColor: "#E0E0E0",
+    // backgroundColor: "#E0E0E0",
+    borderWidth: 1,
+    borderColor: "#ff0266",
   },
 
   btnLabelPrimary: {
-    color: "blue",
+    color: "#ff0266",
   },
-
   titleWrapper: {
     flex: 0,
     gap: 16,
@@ -201,6 +167,7 @@ const styles = StyleSheet.create({
   signinTitle: {
     fontSize: 32,
     fontWeight: "bold",
+    color: "#ff0266",
   },
   signinSubtitle: {
     color: "gray",
