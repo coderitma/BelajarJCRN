@@ -1,9 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import FormSignin from "./src/widgets/FormSignin";
 
 export default function App() {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <FormSignin />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
