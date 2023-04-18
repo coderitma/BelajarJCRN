@@ -15,8 +15,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    marginHorizontal: 16,
-    marginTop: 50,
+    marginHorizontal: 24,
+
+    // marginTop: 50,
   },
 });
 
