@@ -22,7 +22,7 @@ export default function FormSignin() {
   return (
     <SafeAreaView style={styles.formContainer}>
       <View style={styles.titleWrapper}>
-        <Text style={styles.signinTitle}>Halodok</Text>
+        <Text style={styles.signinTitle}>HaloDok</Text>
         <Text style={styles.signinSubtitle}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt
@@ -107,6 +107,7 @@ export default function FormSignin() {
 const styles = StyleSheet.create({
   formContainer: {
     flex: 1,
+    // flexGrow: 1,
     justifyContent: "center",
     gap: 24,
   },
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
   signinTitle: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#ff0266",
+    color: "#000",
   },
   signinSubtitle: {
     color: "gray",
