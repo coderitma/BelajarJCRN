@@ -46,6 +46,26 @@ export default function FormSignin() {
         </TouchableOpacity>
       </View>
       <View>
+        <TouchableOpacity style={[styles.btn, styles.btnSecondary]}>
+          <Text style={styles.btnLabel}>Register</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 8,
+          gap: 8,
+          // backgroundColor: "blue",
+        }}>
+        <View style={{ height: 1, backgroundColor: "gray", flex: 1 }} />
+        <Text style={{ color: "gray" }}>OR</Text>
+        <View style={{ height: 1, backgroundColor: "gray", flex: 1 }} />
+      </View>
+      <View>
         <TouchableOpacity
           style={[
             styles.btn,
@@ -112,11 +132,6 @@ export default function FormSignin() {
               Sign In with Google Playstore
             </Text>
           </View>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <TouchableOpacity style={[styles.btn, styles.btnSecondary]}>
-          <Text style={styles.btnLabel}>Register</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
