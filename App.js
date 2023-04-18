@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginHorizontal: 24,
     justifyContent: "center",
-
+    paddingVertical: 20,
     // marginTop: 50,
   },
 

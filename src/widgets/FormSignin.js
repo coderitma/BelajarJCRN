@@ -28,6 +28,7 @@ export default function FormSignin() {
           eiusmod tempor incididunt
         </Text>
       </View>
+
       <View>
         <TextInput style={styles.formControl} placeholder="Email" />
       </View>
