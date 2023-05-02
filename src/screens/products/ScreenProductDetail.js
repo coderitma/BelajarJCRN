@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Appbar } from "react-native-paper";
+import { Appbar, Button, Card, Text } from "react-native-paper";
 
 const ScreenProductDetail = () => {
   const [product, setProduct] = useState();
@@ -9,7 +9,7 @@ const ScreenProductDetail = () => {
   useEffect(() => {
     setComplete(false);
     axios
-      .get("https://fakestoreapi.com/products/1")
+      .get("https://fakestoreapi.com/products/3")
       .then((response) => {
         setProduct(response.data);
       })
@@ -23,12 +23,31 @@ const ScreenProductDetail = () => {
   return (
     <>
       {complete && (
-        <Appbar.Header>
-          <Appbar.BackAction onPress={() => {}} />
-          <Appbar.Content title={`${product.title}`} />
-          <Appbar.Action icon="calendar" onPress={() => {}} />
-          <Appbar.Action icon="magnify" onPress={() => {}} />
-        </Appbar.Header>
+        <>
+          <Appbar.Header mode="center-aligned" elevated={{ bottom: 10 }}>
+            <Appbar.BackAction onPress={() => {}} />
+            <Appbar.Content title={`${product.title}`} />
+            <Appbar.Action
+              icon="content-save-edit-outline"
+              onPress={() => {}}
+            />
+          </Appbar.Header>
+
+          <Card style={{ marginVertical: 16, marginHorizontal: 24 }}>
+            <Card.Cover
+              style={{ marginVertical: 10 }}
+              source={{ uri: product.image }}
+            />
+            <Card.Content>
+              <Text variant="titleLarge">{product.title}</Text>
+              <Text variant="bodyMedium">{product.description}</Text>
+            </Card.Content>
+            <Card.Actions>
+              <Button>Preview</Button>
+              <Button>Add to Cart</Button>
+            </Card.Actions>
+          </Card>
+        </>
       )}
     </>
   );
