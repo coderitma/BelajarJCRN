@@ -3,12 +3,15 @@ import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import FormSignin from "./src/widgets/FormSignin";
 import { ScrollView } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
 import ScreenProductDetail from "./src/screens/products/ScreenProductDetail";
 
 export default function App() {
   return (
+    <PaperProvider>
+      <ScreenProductDetail />
+    </PaperProvider>
     // <ScrollView contentContainerStyle={styles.container}>
-    <ScreenProductDetail />
     // </ScrollView>
   );
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Image, Text } from "react-native";
+import { Appbar } from "react-native-paper";
 
 const ScreenProductDetail = () => {
   const [product, setProduct] = useState();
@@ -22,17 +22,12 @@ const ScreenProductDetail = () => {
 
   return (
     <>
-      {complete && (
-        <>
-          <Text style={{ marginTop: 30 }}>{product.title}</Text>
-          <Text style={{ marginTop: 30 }}>{product.price}</Text>
-          <Text style={{ marginTop: 30 }}>{product.description}</Text>
-          <Image
-            source={{ uri: product.image }}
-            style={{ width: 100, height: 100 }}
-          />
-        </>
-      )}
+      <Appbar.Header>
+        <Appbar.BackAction onPress={() => {}} />
+        <Appbar.Content title="Title" />
+        <Appbar.Action icon="calendar" onPress={() => {}} />
+        <Appbar.Action icon="magnify" onPress={() => {}} />
+      </Appbar.Header>
     </>
   );
 };
