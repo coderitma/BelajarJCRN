@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Text } from "react-native";
+import { ActivityIndicator, Image, Text } from "react-native";
 
 const ScreenProductDetail = () => {
   const [product, setProduct] = useState();
@@ -19,6 +19,22 @@ const ScreenProductDetail = () => {
         console.log("hehehe");
       });
   }, []);
+
+  return (
+    <>
+      {complete && (
+        <>
+          <Text style={{ marginTop: 30 }}>{product.title}</Text>
+          <Text style={{ marginTop: 30 }}>{product.price}</Text>
+          <Text style={{ marginTop: 30 }}>{product.description}</Text>
+          <Image
+            source={{ uri: product.image }}
+            style={{ width: 100, height: 100 }}
+          />
+        </>
+      )}
+    </>
+  );
 };
 
 export default ScreenProductDetail;
