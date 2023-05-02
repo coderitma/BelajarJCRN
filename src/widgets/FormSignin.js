@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -21,6 +22,12 @@ export default function FormSignin() {
 
   return (
     <SafeAreaView style={styles.formContainer}>
+      <Image
+        style={{ width: 100, height: 100 }}
+        source={{
+          uri: "https://icons.iconarchive.com/icons/dapino/medical/128/stethoscope-icon.png",
+        }}
+      />
       <View style={styles.titleWrapper}>
         <Text style={styles.signinTitle}>HaloDok</Text>
         <Text style={styles.signinSubtitle}>
