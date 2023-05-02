@@ -22,12 +22,14 @@ const ScreenProductDetail = () => {
 
   return (
     <>
-      <Appbar.Header>
-        <Appbar.BackAction onPress={() => {}} />
-        <Appbar.Content title="Title" />
-        <Appbar.Action icon="calendar" onPress={() => {}} />
-        <Appbar.Action icon="magnify" onPress={() => {}} />
-      </Appbar.Header>
+      {complete && (
+        <Appbar.Header>
+          <Appbar.BackAction onPress={() => {}} />
+          <Appbar.Content title={`${product.title}`} />
+          <Appbar.Action icon="calendar" onPress={() => {}} />
+          <Appbar.Action icon="magnify" onPress={() => {}} />
+        </Appbar.Header>
+      )}
     </>
   );
 };
