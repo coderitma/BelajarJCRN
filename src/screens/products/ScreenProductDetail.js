@@ -16,6 +16,7 @@ const ScreenProductDetail = () => {
       .catch((error) => {})
       .finally(() => {
         setComplete(true);
+        console.log("hehehe");
       });
   }, []);
 };
