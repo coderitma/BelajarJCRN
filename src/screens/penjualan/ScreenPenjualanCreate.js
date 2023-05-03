@@ -19,6 +19,12 @@ const ScreenPenjualanCreate = () => {
     method: "",
   });
 
+  const getItem = (item) => {
+    item.qty = 1;
+    item.subtotal = item.qty * item.price;
+    setItems((values) => [...values, item]);
+  };
+
   return (
     <>
       <Appbar.Header>
@@ -26,46 +32,24 @@ const ScreenPenjualanCreate = () => {
         <Appbar.Content title="Point Of Sales" />
       </Appbar.Header>
       <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
-        <WidgetProductChoice />
+        <WidgetProductChoice onPress={getItem} />
         <Divider />
         <List.Section>
           <List.Subheader>Items</List.Subheader>
           <Divider />
-          <List.Item
-            title="Lorem Ipsum 1"
-            description="Rp. 12000 x 2"
-            right={() => <Text>Rp. 24.000</Text>}
-          />
-          <List.Item
-            title="Lorem Ipsum 1"
-            description="Rp. 12000 x 2"
-            right={() => <Text>Rp. 24.000</Text>}
-          />
-          <List.Item
-            title="Lorem Ipsum 1"
-            description="Rp. 12000 x 2"
-            right={() => <Text>Rp. 24.000</Text>}
-          />
-          <List.Item
-            title="Lorem Ipsum 1"
-            description="Rp. 12000 x 2"
-            right={() => <Text>Rp. 24.000</Text>}
-          />
-          <List.Item
-            title="Lorem Ipsum 1"
-            description="Rp. 12000 x 2"
-            right={() => <Text>Rp. 24.000</Text>}
-          />
-          <List.Item
-            title="Lorem Ipsum 1"
-            description="Rp. 12000 x 2"
-            right={() => <Text>Rp. 24.000</Text>}
-          />
-          <List.Item
-            title="Lorem Ipsum 1"
-            description="Rp. 12000 x 2"
-            right={() => <Text>Rp. 24.000</Text>}
-          />
+
+          {items.map((item, index) => (
+            <List.Item
+              key={index}
+              title={item.title}
+              description={
+                <Text>
+                  {item.price} x {item.qty}
+                </Text>
+              }
+              right={() => <Text>{item.subtotal}</Text>}
+            />
+          ))}
         </List.Section>
         <Divider />
         <List.Section>
