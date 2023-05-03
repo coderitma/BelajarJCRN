@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, Modal, Portal, Provider, Text } from "react-native-paper";
+import { ScrollView, Modal } from "react-native";
+import {
+  Appbar,
+  Button,
+  DataTable,
+  Portal,
+  Provider,
+  Text,
+} from "react-native-paper";
 
 const WidgetProductChoice = () => {
   const [visible, setVisible] = useState(false);
@@ -9,14 +17,27 @@ const WidgetProductChoice = () => {
       <Portal>
         <Modal
           visible={visible}
-          onDismiss={() => setVisible(false)}
-          contentContainerStyle={{ backgroundColor: "white", padding: 20 }}>
-          <Text>Example Modal. Click outside this area to dismiss.</Text>
+          animationType="slide"
+          style={{
+            backgroundColor: "white",
+          }}>
+          <ScrollView>
+            <Appbar.Header>
+              <Appbar.BackAction onPress={() => setVisible(false)} />
+              <Appbar.Content title="Pilih Product" />
+            </Appbar.Header>
+
+            <DataTable>
+              <DataTable.Header>
+                <DataTable.Title>Title</DataTable.Title>
+                <DataTable.Title>Category</DataTable.Title>
+                <DataTable.Title numeric>Price</DataTable.Title>
+              </DataTable.Header>
+            </DataTable>
+          </ScrollView>
         </Modal>
       </Portal>
-      <Button style={{ marginTop: 8 }} onPress={() => setVisible(true)}>
-        Pilih Product
-      </Button>
+      <Button onPress={() => setVisible(true)}>Pilih Product</Button>
     </Provider>
   );
 };
