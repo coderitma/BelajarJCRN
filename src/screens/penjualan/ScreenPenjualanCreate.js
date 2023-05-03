@@ -8,6 +8,7 @@ import {
   RadioButton,
   TextInput,
 } from "react-native-paper";
+import WidgetProductChoice from "../../widgets/products/WidgetProductChoice";
 
 const ScreenPenjualanCreate = () => {
   const [items, setItems] = useState([]);
@@ -25,6 +26,7 @@ const ScreenPenjualanCreate = () => {
         <Appbar.Content title="Point Of Sales" />
       </Appbar.Header>
       <Divider />
+      <WidgetProductChoice />
       <List.Section>
         <List.Subheader>Items</List.Subheader>
         <Divider />
