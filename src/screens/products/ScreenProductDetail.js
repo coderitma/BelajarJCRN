@@ -9,7 +9,7 @@ const ScreenProductDetail = () => {
   useEffect(() => {
     setComplete(false);
     axios
-      .get("https://fakestoreapi.com/products/3")
+      .get("https://fakestoreapi.com/products/11")
       .then((response) => {
         setProduct(response.data);
       })
@@ -27,10 +27,7 @@ const ScreenProductDetail = () => {
           <Appbar.Header mode="center-aligned" elevated={{ bottom: 10 }}>
             <Appbar.BackAction onPress={() => {}} />
             <Appbar.Content title={`${product.title}`} />
-            <Appbar.Action
-              icon="content-save-edit-outline"
-              onPress={() => {}}
-            />
+            <Appbar.Action icon="cart-outline" onPress={() => {}} />
           </Appbar.Header>
 
           <Card style={{ marginVertical: 16, marginHorizontal: 24 }}>
@@ -43,8 +40,8 @@ const ScreenProductDetail = () => {
               <Text variant="bodyMedium">{product.description}</Text>
             </Card.Content>
             <Card.Actions>
-              <Button>Preview</Button>
-              <Button>Add to Cart</Button>
+              <Button icon="eye">Preview</Button>
+              <Button icon="cart-plus">Add to Cart</Button>
             </Card.Actions>
           </Card>
         </>

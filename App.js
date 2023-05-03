@@ -11,8 +11,6 @@ export default function App() {
     <PaperProvider>
       <ScreenProductDetail />
     </PaperProvider>
-    // <ScrollView contentContainerStyle={styles.container}>
-    // </ScrollView>
   );
 }
 

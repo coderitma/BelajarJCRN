@@ -21,6 +21,7 @@ export default function FormSignin() {
   };
 
   return (
+
     <SafeAreaView style={styles.formContainer}>
       <Image
         style={{ width: 100, height: 100 }}
