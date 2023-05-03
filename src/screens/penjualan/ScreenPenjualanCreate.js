@@ -25,12 +25,32 @@ const ScreenPenjualanCreate = () => {
         <Appbar.BackAction onPress={() => {}} />
         <Appbar.Content title="Point Of Sales" />
       </Appbar.Header>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
         <WidgetProductChoice />
         <Divider />
         <List.Section>
           <List.Subheader>Items</List.Subheader>
           <Divider />
+          <List.Item
+            title="Lorem Ipsum 1"
+            description="Rp. 12000 x 2"
+            right={() => <Text>Rp. 24.000</Text>}
+          />
+          <List.Item
+            title="Lorem Ipsum 1"
+            description="Rp. 12000 x 2"
+            right={() => <Text>Rp. 24.000</Text>}
+          />
+          <List.Item
+            title="Lorem Ipsum 1"
+            description="Rp. 12000 x 2"
+            right={() => <Text>Rp. 24.000</Text>}
+          />
+          <List.Item
+            title="Lorem Ipsum 1"
+            description="Rp. 12000 x 2"
+            right={() => <Text>Rp. 24.000</Text>}
+          />
           <List.Item
             title="Lorem Ipsum 1"
             description="Rp. 12000 x 2"
