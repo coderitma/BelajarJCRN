@@ -3,10 +3,12 @@ import { ScrollView, Text } from "react-native";
 import {
   Appbar,
   Divider,
+  IconButton,
   List,
   MD3Colors,
   RadioButton,
   TextInput,
+  ToggleButton,
 } from "react-native-paper";
 import WidgetProductChoice from "../../widgets/products/WidgetProductChoice";
 
@@ -44,10 +46,38 @@ const ScreenPenjualanCreate = () => {
               title={item.title}
               description={
                 <Text>
-                  {item.price} x {item.qty}
+                  {item.price} x {item.qty} @ {item.subtotal}
                 </Text>
               }
-              right={() => <Text>{item.subtotal}</Text>}
+              left={() => (
+                <IconButton
+                  icon="trash-can-outline"
+                  iconColor={MD3Colors.error50}
+                  size={24}
+                  onPress={() => console.log("Pressed")}
+                />
+              )}
+              right={() => (
+                <>
+                  <ToggleButton.Row
+                    onValueChange={(value) => setValue(value)}
+                    value={""}>
+                    <ToggleButton
+                      icon="minus"
+                      value="bluetooth"
+                      // status={status}
+                      // onPress={onButtonToggle}
+                    />
+
+                    <ToggleButton
+                      icon="plus"
+                      value="bluetooth"
+                      // status={status}
+                      // onPress={onButtonToggle}
+                    />
+                  </ToggleButton.Row>
+                </>
+              )}
             />
           ))}
         </List.Section>
