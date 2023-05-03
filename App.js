@@ -5,11 +5,12 @@ import FormSignin from "./src/widgets/FormSignin";
 import { ScrollView } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import ScreenProductDetail from "./src/screens/products/ScreenProductDetail";
+import ScreenPenjualanCreate from "./src/screens/penjualan/ScreenPenjualanCreate";
 
 export default function App() {
   return (
     <PaperProvider>
-      <ScreenProductDetail />
+      <ScreenPenjualanCreate />
     </PaperProvider>
   );
 }
