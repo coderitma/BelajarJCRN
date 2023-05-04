@@ -11,6 +11,7 @@ import {
   ToggleButton,
 } from "react-native-paper";
 import WidgetProductChoice from "../../widgets/products/WidgetProductChoice";
+import { ServiceBaseIsDuplicateArray } from "../../services/ServiceBase";
 
 const ScreenPenjualanCreate = () => {
   const [items, setItems] = useState([]);
@@ -21,10 +22,30 @@ const ScreenPenjualanCreate = () => {
     method: "",
   });
 
-  const getItem = (item) => {
+  const addOrUpdate = (item) => {
+    if (ServiceBaseIsDuplicateArray(items, item.id, "id")) {
+      update(item);
+    } else {
+      add(item);
+    }
+  };
+
+  const add = (item) => {
     item.qty = 1;
     item.subtotal = item.qty * item.price;
     setItems((values) => [...values, item]);
+  };
+
+  const update = (item) => {
+    setItems((values) => {
+      const arr = [...values];
+      const b = arr.find((value) => value.id === item.id);
+      const i = arr.findIndex((value) => value.id === item.id);
+      b.qty = b.qty + 1;
+      b.subtotal = b.qty * b.price;
+      arr[i] = b;
+      return arr;
+    });
   };
 
   return (
@@ -34,7 +55,7 @@ const ScreenPenjualanCreate = () => {
         <Appbar.Content title="Point Of Sales" />
       </Appbar.Header>
       <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
-        <WidgetProductChoice onPress={getItem} />
+        <WidgetProductChoice onPress={addOrUpdate} />
         <Divider />
         <List.Section>
           <List.Subheader>Items</List.Subheader>
