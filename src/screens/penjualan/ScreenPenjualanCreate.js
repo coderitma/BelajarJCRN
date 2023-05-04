@@ -59,9 +59,7 @@ const ScreenPenjualanCreate = () => {
               )}
               right={() => (
                 <>
-                  <ToggleButton.Row
-                    onValueChange={(value) => setValue(value)}
-                    value={""}>
+                  <ToggleButton.Row onValueChange={(value) => {}} value={""}>
                     <ToggleButton
                       icon="minus"
                       value="bluetooth"
