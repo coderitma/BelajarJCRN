@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ScrollView, Text } from "react-native";
 import {
   Appbar,
   Divider,
-  IconButton,
   List,
-  MD3Colors,
   RadioButton,
   TextInput,
-  ToggleButton,
 } from "react-native-paper";
 import WidgetProductChoice from "../../widgets/products/WidgetProductChoice";
 import { ServiceBaseIsDuplicateArray } from "../../services/ServiceBase";
@@ -63,6 +60,15 @@ const ScreenPenjualanCreate = () => {
     });
   };
 
+  const calculateTotal = useMemo(() => {
+    let total = 0;
+    for (const item of items) {
+      total = total + item.subtotal;
+    }
+
+    return total;
+  }, [items]);
+
   return (
     <>
       <Appbar.Header>
@@ -89,6 +95,7 @@ const ScreenPenjualanCreate = () => {
                 <>
                   <TextInput
                     value={`${item.qty || ""}`}
+                    error={calculateTotal ? false : true}
                     onChangeText={(text) =>
                       handleInput("qty", parseInt(text), index)
                     }
@@ -102,7 +109,10 @@ const ScreenPenjualanCreate = () => {
         <List.Section>
           <List.Subheader>Pembayaran</List.Subheader>
           <Divider />
-          <List.Item title="Total" right={() => <Text>Rp. 72.000</Text>} />
+          <List.Item
+            title="Total"
+            right={() => <Text>{calculateTotal || 0}</Text>}
+          />
           <List.Item title="Change" right={() => <Text>Rp. 0</Text>} />
         </List.Section>
         <RadioButton.Group
