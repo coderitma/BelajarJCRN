@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ScrollView, Modal, Alert } from "react-native";
+import { ScrollView, Modal, Alert, View } from "react-native";
 import {
   Appbar,
   Button,
   DataTable,
+  MD3Colors,
   Portal,
+  ProgressBar,
   Provider,
   Text,
 } from "react-native-paper";
@@ -13,16 +15,33 @@ import {
 const WidgetProductChoice = ({ onPress }) => {
   const [visible, setVisible] = useState(false);
   const [products, setProducts] = useState([]);
+  const [complete, setComplete] = useState(false);
+
+  const openModal = () => {
+    setComplete(false);
+    const debounce = setTimeout(() => {
+      setVisible(true);
+      setComplete(true);
+      clearTimeout(debounce);
+    }, 100);
+  };
 
   useEffect(() => {
-    axios
-      .get("https://fakestoreapi.com/products")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        Alert.alert("Ups!", error);
-      });
+    setComplete(false);
+    const debounce = setTimeout(() => {
+      axios
+        .get("https://fakestoreapi.com/products")
+        .then((response) => {
+          setProducts(response.data);
+        })
+        .catch((error) => {
+          Alert.alert("Ups!", error);
+        })
+        .finally(() => {
+          clearTimeout(debounce);
+          setComplete(true);
+        });
+    }, 1000);
   }, []);
 
   return (
@@ -34,36 +53,54 @@ const WidgetProductChoice = ({ onPress }) => {
           style={{
             backgroundColor: "white",
           }}>
-          <ScrollView>
-            <Appbar.Header>
-              <Appbar.BackAction onPress={() => setVisible(false)} />
-              <Appbar.Content title="Pilih Product" />
-            </Appbar.Header>
+          {complete && (
+            <ScrollView>
+              <Appbar.Header>
+                <Appbar.BackAction onPress={() => setVisible(false)} />
+                <Appbar.Content title="Pilih Product" />
+              </Appbar.Header>
+              <DataTable>
+                <DataTable.Header>
+                  <DataTable.Title>Title</DataTable.Title>
+                  <DataTable.Title>Category</DataTable.Title>
+                  <DataTable.Title numeric>Price</DataTable.Title>
+                </DataTable.Header>
 
-            <DataTable>
-              <DataTable.Header>
-                <DataTable.Title>Title</DataTable.Title>
-                <DataTable.Title>Category</DataTable.Title>
-                <DataTable.Title numeric>Price</DataTable.Title>
-              </DataTable.Header>
-
-              {products.map((product, index) => (
-                <DataTable.Row
-                  key={index}
-                  onPress={() => {
-                    onPress(product);
-                    setVisible(false);
-                  }}>
-                  <DataTable.Cell>{product.title}</DataTable.Cell>
-                  <DataTable.Cell>{product.category}</DataTable.Cell>
-                  <DataTable.Cell numeric>{product.price}</DataTable.Cell>
-                </DataTable.Row>
-              ))}
-            </DataTable>
-          </ScrollView>
+                {products.map((product, index) => (
+                  <DataTable.Row
+                    key={index}
+                    onPress={() => {
+                      setComplete(false);
+                      const debounce = setTimeout(() => {
+                        onPress(product);
+                        setVisible(false);
+                        setComplete(true);
+                        clearTimeout(debounce);
+                      }, 500);
+                    }}>
+                    <DataTable.Cell>{product.title}</DataTable.Cell>
+                    <DataTable.Cell>{product.category}</DataTable.Cell>
+                    <DataTable.Cell numeric>{product.price}</DataTable.Cell>
+                  </DataTable.Row>
+                ))}
+              </DataTable>
+            </ScrollView>
+          )}
+          {!complete && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                marginHorizontal: 24,
+              }}>
+              <ProgressBar indeterminate={true} color={MD3Colors.error50} />
+            </View>
+          )}
         </Modal>
       </Portal>
-      <Button onPress={() => setVisible(true)}>Pilih Product</Button>
+      <Button loading={!complete} onPress={openModal}>
+        Pilih Product
+      </Button>
     </Provider>
   );
 };
