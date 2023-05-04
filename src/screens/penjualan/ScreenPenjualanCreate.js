@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react";
-import { ScrollView, Text } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { ScrollView, Text, View } from "react-native";
 import {
+  ActivityIndicator,
   Appbar,
   Divider,
   List,
+  MD2Colors,
   RadioButton,
   TextInput,
 } from "react-native-paper";
@@ -11,6 +13,7 @@ import WidgetProductChoice from "../../widgets/products/WidgetProductChoice";
 import { ServiceBaseIsDuplicateArray } from "../../services/ServiceBase";
 
 const ScreenPenjualanCreate = () => {
+  const [complete, setComplete] = useState(false);
   const [items, setItems] = useState([]);
   const [payment, setPayment] = useState({
     total: 0,
@@ -34,12 +37,21 @@ const ScreenPenjualanCreate = () => {
     });
   };
 
+  const handleInputPayment = (name, value) => {
+    setPayment((values) => ({ ...values, [name]: value }));
+  };
+
   const addOrUpdate = (item) => {
-    if (ServiceBaseIsDuplicateArray(items, item.id, "id")) {
-      update(item);
-    } else {
-      add(item);
-    }
+    setComplete(false);
+    const debounce = setTimeout(() => {
+      if (ServiceBaseIsDuplicateArray(items, item.id, "id")) {
+        update(item);
+      } else {
+        add(item);
+      }
+      setComplete(true);
+      clearTimeout(debounce);
+    }, 100);
   };
 
   const add = (item) => {
@@ -66,8 +78,22 @@ const ScreenPenjualanCreate = () => {
       total = total + item.subtotal;
     }
 
+    setPayment((values) => ({ ...values, total }));
+
     return total;
   }, [items]);
+
+  const calculateChange = useMemo(() => {
+    return payment.pay - calculateTotal;
+  }, [items, payment.pay]);
+
+  useEffect(() => {
+    setComplete(false);
+    const debounce = setTimeout(() => {
+      setComplete(true);
+      clearTimeout(debounce);
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -75,62 +101,83 @@ const ScreenPenjualanCreate = () => {
         <Appbar.BackAction onPress={() => {}} />
         <Appbar.Content title="Point Of Sales" />
       </Appbar.Header>
-      <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
-        <WidgetProductChoice onPress={addOrUpdate} />
-        <Divider />
-        <List.Section>
-          <List.Subheader>Items</List.Subheader>
+      {complete && (
+        <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
+          <WidgetProductChoice onPress={addOrUpdate} />
           <Divider />
+          <List.Section>
+            <List.Subheader>Items</List.Subheader>
+            <Divider />
 
-          {items.map((item, index) => (
-            <List.Item
-              key={index}
-              title={item.title}
-              description={
-                <Text>
-                  {item.price} x {item.qty || 0} @ {item.subtotal || 0}
-                </Text>
-              }
-              right={() => (
-                <>
-                  <TextInput
-                    value={`${item.qty || ""}`}
-                    error={calculateTotal ? false : true}
-                    onChangeText={(text) =>
-                      handleInput("qty", parseInt(text), index)
-                    }
-                  />
-                </>
-              )}
-            />
-          ))}
-        </List.Section>
-        <Divider />
-        <List.Section>
-          <List.Subheader>Pembayaran</List.Subheader>
+            {items.map((item, index) => (
+              <List.Item
+                key={index}
+                title={item.title}
+                description={
+                  <Text>
+                    {item.price} x {item.qty || 0} @ {item.subtotal || 0}
+                  </Text>
+                }
+                right={() => (
+                  <>
+                    <TextInput
+                      value={`${item.qty || ""}`}
+                      error={calculateTotal ? false : true}
+                      onChangeText={(text) =>
+                        handleInput("qty", parseInt(text), index)
+                      }
+                    />
+                  </>
+                )}
+              />
+            ))}
+          </List.Section>
           <Divider />
-          <List.Item
-            title="Total"
-            right={() => <Text>{calculateTotal || 0}</Text>}
+          <List.Section>
+            <List.Subheader>Pembayaran</List.Subheader>
+            <Divider />
+            <List.Item
+              title="Total"
+              right={() => <Text>{calculateTotal || 0}</Text>}
+            />
+            <List.Item
+              title="Change"
+              right={() => <Text>{calculateChange || 0}</Text>}
+            />
+          </List.Section>
+          <RadioButton.Group
+            onValueChange={(value) => {
+              setPayment((values) => ({ ...values, method: value }));
+            }}
+            value={payment.method}>
+            <RadioButton.Item label="Cash" value="cash" />
+            <RadioButton.Item label="Bank Transfer" value="bank" />
+          </RadioButton.Group>
+          <Divider />
+          <TextInput
+            value={`${payment.pay || ""}`}
+            onChangeText={(text) => handleInputPayment("pay", parseInt(text))}
+            style={{ marginHorizontal: 16, marginTop: 16 }}
+            mode="outlined"
+            label="Pay"
           />
-          <List.Item title="Change" right={() => <Text>Rp. 0</Text>} />
-        </List.Section>
-        <RadioButton.Group
-          onValueChange={(value) => {
-            setPayment((values) => ({ ...values, method: value }));
-          }}
-          value={payment.method}>
-          <RadioButton.Item label="Cash" value="cash" />
-          <RadioButton.Item label="Bank Transfer" value="bank" />
-        </RadioButton.Group>
-        <Divider />
-        <TextInput
-          value={`${payment.pay || ""}`}
-          style={{ marginHorizontal: 16, marginTop: 16 }}
-          mode="outlined"
-          label="Pay"
-        />
-      </ScrollView>
+        </ScrollView>
+      )}
+
+      {!complete && (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            marginHorizontal: 24,
+            gap: 16,
+          }}>
+          {/* <ProgressBar indeterminate={true} color={MD3Colors.error50} /> */}
+          <ActivityIndicator animating={!complete} color={MD2Colors.red800} />
+          <Text>Waiting Moment</Text>
+        </View>
+      )}
     </>
   );
 };

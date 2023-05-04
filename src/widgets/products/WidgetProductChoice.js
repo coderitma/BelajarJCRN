@@ -50,8 +50,8 @@ const WidgetProductChoice = ({ onPress }) => {
     <Provider>
       <Portal>
         <Modal
-          visible={visible}
-          animationType="fade"
+          visible={visible && complete}
+          animationType="slide"
           style={{
             backgroundColor: "white",
           }}>
