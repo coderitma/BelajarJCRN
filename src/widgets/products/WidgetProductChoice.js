@@ -2,9 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ScrollView, Modal, Alert, View } from "react-native";
 import {
+  ActivityIndicator,
   Appbar,
   Button,
   DataTable,
+  MD2Colors,
   MD3Colors,
   Portal,
   ProgressBar,
@@ -49,7 +51,7 @@ const WidgetProductChoice = ({ onPress }) => {
       <Portal>
         <Modal
           visible={visible}
-          animationType="slide"
+          animationType="fade"
           style={{
             backgroundColor: "white",
           }}>
@@ -93,7 +95,11 @@ const WidgetProductChoice = ({ onPress }) => {
                 justifyContent: "center",
                 marginHorizontal: 24,
               }}>
-              <ProgressBar indeterminate={true} color={MD3Colors.error50} />
+              {/* <ProgressBar indeterminate={true} color={MD3Colors.error50} /> */}
+              <ActivityIndicator
+                animating={!complete}
+                color={MD2Colors.red800}
+              />
             </View>
           )}
         </Modal>
