@@ -93,13 +93,16 @@ const WidgetProductChoice = ({ onPress }) => {
               style={{
                 flex: 1,
                 justifyContent: "center",
+                alignItems: "center",
                 marginHorizontal: 24,
+                gap: 16,
               }}>
               {/* <ProgressBar indeterminate={true} color={MD3Colors.error50} /> */}
               <ActivityIndicator
                 animating={!complete}
                 color={MD2Colors.red800}
               />
+              <Text>Waiting Moment</Text>
             </View>
           )}
         </Modal>
