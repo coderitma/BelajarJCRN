@@ -22,6 +22,21 @@ const ScreenPenjualanCreate = () => {
     method: "",
   });
 
+  const handleInput = (name, value, index) => {
+    setItems((values) => {
+      const arr = [...values];
+      const b = arr[index];
+      if (value === 0) {
+        arr.splice(index, 1);
+        return arr;
+      }
+      b[name] = value;
+      b.subtotal = b[name] * b.price;
+      arr[index] = b;
+      return arr;
+    });
+  };
+
   const addOrUpdate = (item) => {
     if (ServiceBaseIsDuplicateArray(items, item.id, "id")) {
       update(item);
@@ -67,34 +82,17 @@ const ScreenPenjualanCreate = () => {
               title={item.title}
               description={
                 <Text>
-                  {item.price} x {item.qty} @ {item.subtotal}
+                  {item.price} x {item.qty || 0} @ {item.subtotal || 0}
                 </Text>
               }
-              left={() => (
-                <IconButton
-                  icon="trash-can-outline"
-                  iconColor={MD3Colors.error50}
-                  size={24}
-                  onPress={() => console.log("Pressed")}
-                />
-              )}
               right={() => (
                 <>
-                  <ToggleButton.Row onValueChange={(value) => {}} value={""}>
-                    <ToggleButton
-                      icon="minus"
-                      value="bluetooth"
-                      // status={status}
-                      // onPress={onButtonToggle}
-                    />
-
-                    <ToggleButton
-                      icon="plus"
-                      value="bluetooth"
-                      // status={status}
-                      // onPress={onButtonToggle}
-                    />
-                  </ToggleButton.Row>
+                  <TextInput
+                    value={`${item.qty || ""}`}
+                    onChangeText={(text) =>
+                      handleInput("qty", parseInt(text), index)
+                    }
+                  />
                 </>
               )}
             />
