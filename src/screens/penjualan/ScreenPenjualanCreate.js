@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { Alert, ScrollView, StatusBar, Text, View } from "react-native";
 import {
   ActivityIndicator,
   Appbar,
@@ -104,6 +104,7 @@ const ScreenPenjualanCreate = ({ navigation }) => {
       .post("https://fakestoreapi.com/carts", payload)
       .then((response) => {
         console.log(response.data);
+        navigation.navigate("ScreenPenjualanSuccess", { payment, items });
       })
       .catch((error) => {
         Alert.alert("Error", error);
@@ -189,14 +190,6 @@ const ScreenPenjualanCreate = ({ navigation }) => {
             onPress={handleSave}
             mode="contained">
             Simpan
-          </Button>
-          <Button
-            style={{ marginVertical: 24, marginHorizontal: 16 }}
-            onPress={() => {
-              navigation.navigate("ScreenPenjualanSuccess", { payment });
-            }}
-            mode="contained">
-            Coba Pindah
           </Button>
         </ScrollView>
       )}
