@@ -1,6 +1,17 @@
-import { Appbar, List, Text } from "react-native-paper";
+import { useEffect, useState } from "react";
+import { Linking } from "react-native";
+import { Appbar, Button, List, Text } from "react-native-paper";
 
 const ScreenPenjualanSuccess = ({ navigation, route }) => {
+  const [message, setMessage] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("0895338994488");
+
+  useEffect(() => {
+    setMessage(
+      `Transaksi berhasil dengan nominal ${route.params?.payment?.total}.`
+    );
+  }, [route.params.payment]);
+
   return (
     <>
       <Appbar.Header>
@@ -10,6 +21,14 @@ const ScreenPenjualanSuccess = ({ navigation, route }) => {
           }}
         />
         <Appbar.Content title="Detail Pembelian" />
+        <Appbar.Action
+          icon={"whatsapp"}
+          onPress={() => {
+            Linking.openURL(
+              `whatsapp://send?text=${message}&phone=${phoneNumber}`
+            );
+          }}
+        />
       </Appbar.Header>
 
       <List.Section>
@@ -22,6 +41,23 @@ const ScreenPenjualanSuccess = ({ navigation, route }) => {
               description={value.price}
             />
           ))}
+      </List.Section>
+
+      <List.Section>
+        <List.Subheader>Pembayaran</List.Subheader>
+        {/* <Divider /> */}
+        <List.Item
+          title="Total"
+          right={() => <Text>{route.params?.payment?.total || 0}</Text>}
+        />
+        <List.Item
+          title="Change"
+          right={() => <Text>{route.params?.payment?.pay || 0}</Text>}
+        />
+        <List.Item
+          title="Change"
+          right={() => <Text>{route.params?.payment?.change || 0}</Text>}
+        />
       </List.Section>
     </>
   );

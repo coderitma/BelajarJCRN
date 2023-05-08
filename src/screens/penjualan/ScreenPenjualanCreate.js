@@ -86,7 +86,10 @@ const ScreenPenjualanCreate = ({ navigation }) => {
   }, [items]);
 
   const calculateChange = useMemo(() => {
-    return payment.pay - calculateTotal;
+    const change = payment.pay - calculateTotal;
+    setPayment((values) => ({ ...values, change }));
+
+    return change;
   }, [items, payment.pay]);
 
   const handleSave = () => {
