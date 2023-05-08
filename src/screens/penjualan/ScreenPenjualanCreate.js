@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import {
   ActivityIndicator,
   Appbar,
@@ -12,8 +12,9 @@ import {
 } from "react-native-paper";
 import WidgetProductChoice from "../../widgets/products/WidgetProductChoice";
 import { ServiceBaseIsDuplicateArray } from "../../services/ServiceBase";
+import axios from "axios";
 
-const ScreenPenjualanCreate = () => {
+const ScreenPenjualanCreate = ({ navigation }) => {
   const [complete, setComplete] = useState(false);
   const [items, setItems] = useState([]);
   const [payment, setPayment] = useState({
@@ -92,13 +93,21 @@ const ScreenPenjualanCreate = () => {
     const products = items.map((value) => {
       return { productId: value.id, quantity: value.qty };
     });
+
     const payload = {
       userId: 5,
       date: "2020-02-03",
       products,
     };
 
-    console.log(payload);
+    axios
+      .post("https://fakestoreapi.com/carts", payload)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        Alert.alert("Error", error);
+      });
   };
 
   useEffect(() => {
@@ -180,6 +189,14 @@ const ScreenPenjualanCreate = () => {
             onPress={handleSave}
             mode="contained">
             Simpan
+          </Button>
+          <Button
+            style={{ marginVertical: 24, marginHorizontal: 16 }}
+            onPress={() => {
+              navigation.navigate("ScreenPenjualanSuccess", { payment });
+            }}
+            mode="contained">
+            Coba Pindah
           </Button>
         </ScrollView>
       )}
