@@ -3,6 +3,7 @@ import { ScrollView, Text, View } from "react-native";
 import {
   ActivityIndicator,
   Appbar,
+  Button,
   Divider,
   List,
   MD2Colors,
@@ -87,6 +88,19 @@ const ScreenPenjualanCreate = () => {
     return payment.pay - calculateTotal;
   }, [items, payment.pay]);
 
+  const handleSave = () => {
+    const products = items.map((value) => {
+      return { productId: value.id, quantity: value.qty };
+    });
+    const payload = {
+      userId: 5,
+      date: "2020-02-03",
+      products,
+    };
+
+    console.log(payload);
+  };
+
   useEffect(() => {
     setComplete(false);
     const debounce = setTimeout(() => {
@@ -161,6 +175,12 @@ const ScreenPenjualanCreate = () => {
             mode="outlined"
             label="Pay"
           />
+          <Button
+            style={{ marginVertical: 24, marginHorizontal: 16 }}
+            onPress={handleSave}
+            mode="contained">
+            Simpan
+          </Button>
         </ScrollView>
       )}
 
